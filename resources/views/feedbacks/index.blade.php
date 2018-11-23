@@ -33,7 +33,8 @@
         </table>
 
         <div class="pagination">
-            <?php echo $feedbacks->render(); ?>
+            {{ $feedbacks->links() }}
+
 
         </div>
     </div>
