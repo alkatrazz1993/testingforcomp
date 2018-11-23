@@ -23,16 +23,14 @@ class FeedBackController extends Controller
         $order_col = in_array($request->order, $allowedToSort) ? $request->order : 'created_at';
         $order_type = $request->order_type == 'asc' ? 'asc': 'desc';
 
-        $feedbacks = Book::orderBy($order_col, $order_type);
+        $feedbacks = Book::orderBy($order_col, $order_type)->paginate(25);
 
         $dateFormated = array();
-        $feedbacks = $feedbacks->paginate();
 
         foreach ($feedbacks as $feedback){
             $date = date('d-m-Y', strtotime($feedback->created_at));
             $dateFormated[$feedback->id] = $date;
         }
-
 
         return view('feedbacks.index')->with([
             'feedbacks' => $feedbacks,
